@@ -53,7 +53,8 @@
                     HorizontalAlignment="Stretch"
                     Margin="10">
             <Button Name="UploadButton"
-                    Content="Upload Gambar" />
+                    Content="Upload Gambar"
+                    Click="UploadButton_Click" />
             <ToggleSwitch Name="AlgorithmSwitch"
                           Content="KMP/BM" />
             <Button Name="SearchButton"
