@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tubes3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aed75ff9372d2486e8a54544e947fe404079bbe5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25655aab2448d8fc0642773c644e514abc9ab448")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tubes3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tubes3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
