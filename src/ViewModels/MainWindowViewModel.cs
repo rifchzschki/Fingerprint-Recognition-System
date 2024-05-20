@@ -20,6 +20,10 @@ namespace Tubes3.ViewModels
 
         private string _asciiRepresentation;
 
+        private string _timeElapsed;
+
+        private string _similarityPercentage;
+
         public Bitmap? UploadedImage
         {
             get => _uploadedImage;
@@ -56,6 +60,18 @@ namespace Tubes3.ViewModels
             set => this.RaiseAndSetIfChanged(ref _asciiRepresentation, value);
         }
 
+        public string TimeElapsed
+        {
+            get => _timeElapsed;
+            set => this.RaiseAndSetIfChanged(ref _timeElapsed, value);
+        }
+
+        public string SimilarityPercentage
+        {
+            get => _similarityPercentage;
+            set => this.RaiseAndSetIfChanged(ref _similarityPercentage, value);
+        }
+
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
 
@@ -69,6 +85,8 @@ namespace Tubes3.ViewModels
             _executionTime = string.Empty;
             _matchPercentage = string.Empty;
             _asciiRepresentation = string.Empty;
+            _timeElapsed = string.Empty;
+            _similarityPercentage = string.Empty;
 
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
