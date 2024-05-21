@@ -68,7 +68,7 @@
                         FontFamily="Inter"
                         Foreground="#0E0706"
                         Background="#F49583" />
-                <ComboBox SelectedIndex="0"
+                <ComboBox SelectedIndex="{Binding SelectedAlgorithm}"
                           Padding="20, 5, 20, 5"
                           Width="200"
                           Height="60"

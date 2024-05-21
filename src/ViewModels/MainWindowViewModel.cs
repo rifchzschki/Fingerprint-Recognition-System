@@ -22,6 +22,7 @@ namespace Tubes3.ViewModels
 
         private string _timeElapsed;
 
+        private string _selectedAlgorithm;
         private string _similarityPercentage;
 
         public Bitmap? UploadedImage
@@ -72,6 +73,13 @@ namespace Tubes3.ViewModels
             set => this.RaiseAndSetIfChanged(ref _similarityPercentage, value);
         }
 
+
+        public string SelectedAlgorithm
+        {
+            get => _selectedAlgorithm;
+            set => this.RaiseAndSetIfChanged(ref _selectedAlgorithm, value);
+        }
+
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
 
@@ -87,6 +95,7 @@ namespace Tubes3.ViewModels
             _asciiRepresentation = string.Empty;
             _timeElapsed = string.Empty;
             _similarityPercentage = string.Empty;
+            _selectedAlgorithm = "0";
 
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
@@ -126,18 +135,24 @@ namespace Tubes3.ViewModels
             }
         }
 
-        private async Task SearchFingerprint()
+        private Task SearchFingerprint()
         {
             if (UploadedImage == null)
             {
-                // Handle the case where no image is uploaded
-                return;
+                return Task.CompletedTask;
             }
 
             // Simulate fingerprint matching logic
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-            await Task.Delay(1000); // Simulate a delay for the search operation
+            if (SelectedAlgorithm == "0") // KMP
+            {
+                // Proses pake algoritma KMP
+            }
+            else // BM
+            {
+                // Proses pake algoritma BM
+            }
 
             stopwatch.Stop();
             ExecutionTime = $"Execution Time: {stopwatch.ElapsedMilliseconds} ms";
@@ -146,6 +161,7 @@ namespace Tubes3.ViewModels
             MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
             PersonData = "Name: Rudi Kurniawan\nID: 23123123";
             MatchPercentage = "Match Percentage: 95%";
+            return Task.CompletedTask;
         }
     }
 }
