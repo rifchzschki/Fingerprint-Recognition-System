@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 class KMP
 {
@@ -36,7 +39,7 @@ class KMP
     }
 
     // Fungsi utama untuk pencarian string
-    public static void KMPSearch(string text, string pattern)
+    public static bool KMPSearch(string text, string pattern)
     {
         int n = text.Length;
         int m = pattern.Length;
@@ -55,8 +58,7 @@ class KMP
 
             if (j == m) // Kecocokan ditemukan
             {
-                Console.WriteLine($"Pola ditemukan pada indeks {i - j}");
-                j = lps[j - 1];
+                return true;
             }
             else if (i < n && pattern[j] != text[i])
             {
@@ -69,6 +71,69 @@ class KMP
                     i++;
                 }
             }
+        }
+        return false;
+    }
+
+    // Fungsi driver utama untuk multithreading
+    public static string? FindPatternInTexts(string pattern, List<string> listOfText)
+    {
+        var cancellationTokenSource = new CancellationTokenSource();
+        var tasks = new List<Task<string?>>();
+
+        foreach (var text in listOfText)
+        {
+            tasks.Add(Task.Run(() =>
+            {
+                if (KMPSearch(text, pattern))
+                {
+                    cancellationTokenSource.Cancel();
+                    return text;
+                }
+                return null;
+            }, cancellationTokenSource.Token));
+        }
+
+        try
+        {
+            Task.WaitAny([.. tasks], cancellationTokenSource.Token);
+        }
+        catch (OperationCanceledException)
+        {
+        }
+
+        foreach (var task in tasks)
+        {
+            if (task.IsCompletedSuccessfully && task.Result != null)
+            {
+                return task.Result;
+            }
+        }
+
+        return null;
+    }
+
+    public static void DriverKMP()
+    {
+        string pattern = "ABABC";
+        List<string> listOfText = new List<string>
+        {
+            "ABABDABACDABABCABAB",
+            "BABCABCDABABC",
+            "ABABCABABC",
+            "AABABABCABAB",
+            "ABABABABAB"
+        };
+
+        string result = FindPatternInTexts(pattern, listOfText) ?? "";
+
+        if (result != "")
+        {
+            Console.WriteLine("Text dengan kecocokan: " + result);
+        }
+        else
+        {
+            Console.WriteLine("Tidak ada kecocokan ditemukan.");
         }
     }
 }
