@@ -76,18 +76,18 @@ class Program
 
     }
 
-    static void Main()
-    {
-        Program program = new Program();
-        string acuan = "buntng" ;
-        string input = "bunting";
+    // static void Main()
+    // {
+    //     Program program = new Program();
+    //     string acuan = "buntng" ;
+    //     string input = "bunting";
 
-        if(program.validasi(acuan, input)){
-            Console.WriteLine("Ya");
-        }else{
-            Console.WriteLine("Tidak");
+    //     if(program.validasi(acuan, input)){
+    //         Console.WriteLine("Ya");
+    //     }else{
+    //         Console.WriteLine("Tidak");
 
-        }
-        Console.WriteLine("Hasil penggantian: " + input);
-    }
+    //     }
+    //     Console.WriteLine("Hasil penggantian: " + input);
+    // }
 }
