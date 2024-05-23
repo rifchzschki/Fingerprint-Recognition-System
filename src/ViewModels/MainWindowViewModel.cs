@@ -125,8 +125,7 @@ namespace Tubes3.ViewModels
                         UploadedImage = bitmap;
 
                         // Convert image to binary and then to ASCII - 8 bit
-                        var binaryData = ImageProcessor.ConvertImageToBinary(new Bitmap(filePath));
-                        AsciiRepresentation = ImageProcessor.SetStringtoASCII(binaryData);
+                        var binaryData = ImageProcessor.ConvertBitmapToAscii(stream);
 
                         var asciiFilePath = "halo.txt"; // buat cek hasil konversi
                         File.WriteAllText(asciiFilePath, AsciiRepresentation);
