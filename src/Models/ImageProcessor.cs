@@ -1,4 +1,4 @@
-using Avalonia.Media.Imaging;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System;
@@ -11,67 +11,49 @@ namespace Tubes3.Models
         /// </summary>
         /// <param name="bitmap"> Bitmap yang ingin diubah menjadi binary </param>
         /// <returns> Binary dari gambar dalam string </returns>
-        public static string ConvertImageToBinary(Bitmap bitmap)
+        public static string ConvertBitmapToAscii(FileStream stream)
         {
-            using var stream = new MemoryStream();
-            bitmap.Save(stream);
-            var bytes = stream.ToArray();
-            var binary = new StringBuilder();
-            foreach (var b in bytes)
+#pragma warning disable CA1416 // Validate platform compatibility
+            var bitmap = new Bitmap(stream);
+#pragma warning restore CA1416 // Validate platform compatibility
+            StringBuilder asciiArt = new StringBuilder();
+
+#pragma warning disable CA1416 // Validate platform compatibility
+            for (int y = 0; y < bitmap.Height; y++)
             {
-                binary.Append(Convert.ToString(b, 2).PadLeft(8, '0'));
+#pragma warning disable CA1416 // Validate platform compatibility
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+#pragma warning disable CA1416 // Validate platform compatibility
+                    var pixelColor = bitmap.GetPixel(x, y);
+#pragma warning restore CA1416 // Validate platform compatibility
+                    int grayValue = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+                    var binaryString = Convert.ToString(grayValue, 2).PadLeft(8, '0');
+                    var asciiChar = BinaryToAscii(binaryString);
+                    asciiArt.Append(asciiChar);
+                }
+#pragma warning restore CA1416 // Validate platform compatibility
+                asciiArt.Append(Environment.NewLine);
             }
-            return binary.ToString();
+#pragma warning restore CA1416 // Validate platform compatibility
+
+            return asciiArt.ToString();
+        }
+
+        private static char BinaryToAscii(string binary)
+        {
+            int decimalValue = Convert.ToInt32(binary, 2);
+            return (char)decimalValue;
         }
 
         /// <summary>
-        /// Mengubah binary menjadi decimal
+        /// Mengubah bitmap menjadi grayscale dan mengembalikan nilai intensitas
         /// </summary>
-        /// <param name="n"> Binary yang ingin diubah menjadi decimal </param>
-        /// <returns> Decimal dari binary dalam string </returns>
-        private static int BinaryToDecimal(string n)
+        /// <param name="color">Warna piksel</param>
+        /// <returns>Nilai intensitas grayscale</returns>
+        private static int ToGrayscale(Color color)
         {
-            string num = n;
-            int dec_value = 0;
-            int base1 = 1;
-
-            int len = num.Length;
-            for (int i = len - 1; i >= 0; i--)
-            {
-
-                if (num[i] == '1')
-                    dec_value += base1;
-                base1 = base1 * 2;
-            }
-
-            return dec_value;
-        }
-
-        /// <summary>
-        /// Mengubah string menjadi ASCII
-        /// </summary>
-        /// <param name="str"> String Binary yang ingin diubah menjadi ASCII 8 - bit </param>
-        /// <returns> ASCII - 8 bit dari string </returns>
-        public static string SetStringtoASCII(string str)
-        {
-            int N = str.Length;
-
-            // if (N % 8 != 0)
-            // {
-            //     return "Not Possible!";
-            // }
-
-            string res = "";
-
-            for (int i = 0; i < N; i += 8)
-            {
-                int decimal_value
-                    = BinaryToDecimal(str.Substring(i, 8));
-
-                res += (char)decimal_value;
-            }
-
-            return res;
+            return (color.R + color.G + color.B) / 3;
         }
 
     }
