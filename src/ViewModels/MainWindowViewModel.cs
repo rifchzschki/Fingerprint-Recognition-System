@@ -43,18 +43,6 @@ namespace Tubes3.ViewModels
             set => this.RaiseAndSetIfChanged(ref _personData, value);
         }
 
-        public string ExecutionTime
-        {
-            get => _executionTime;
-            set => this.RaiseAndSetIfChanged(ref _executionTime, value);
-        }
-
-        public string MatchPercentage
-        {
-            get => _matchPercentage;
-            set => this.RaiseAndSetIfChanged(ref _matchPercentage, value);
-        }
-
         public string AsciiRepresentation
         {
             get => _asciiRepresentation;
@@ -154,12 +142,12 @@ namespace Tubes3.ViewModels
             }
 
             stopwatch.Stop();
-            ExecutionTime = $"Execution Time: {stopwatch.ElapsedMilliseconds} ms";
+            TimeElapsed = $"{stopwatch.ElapsedMilliseconds} ms";
 
             // Simulate finding a match
             MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
             PersonData = "Name: Rudi Kurniawan\nID: 23123123";
-            MatchPercentage = "Match Percentage: 95%";
+            SimilarityPercentage = "95%";
             return Task.CompletedTask;
         }
     }
