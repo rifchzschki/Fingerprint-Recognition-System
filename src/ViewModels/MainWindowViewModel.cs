@@ -76,8 +76,6 @@ namespace Tubes3.ViewModels
             _uploadedImage = null;
             _matchedImage = null;
             _personData = string.Empty;
-            _executionTime = string.Empty;
-            _matchPercentage = string.Empty;
             _asciiRepresentation = string.Empty;
             _timeElapsed = string.Empty;
             _similarityPercentage = string.Empty;
