@@ -15,8 +15,6 @@ namespace Tubes3.ViewModels
         private Bitmap? _uploadedImage;
         private Bitmap? _matchedImage;
         private string _personData;
-        private string _executionTime;
-        private string _matchPercentage;
 
         private string _asciiRepresentation;
 
@@ -41,18 +39,6 @@ namespace Tubes3.ViewModels
         {
             get => _personData;
             set => this.RaiseAndSetIfChanged(ref _personData, value);
-        }
-
-        public string ExecutionTime
-        {
-            get => _executionTime;
-            set => this.RaiseAndSetIfChanged(ref _executionTime, value);
-        }
-
-        public string MatchPercentage
-        {
-            get => _matchPercentage;
-            set => this.RaiseAndSetIfChanged(ref _matchPercentage, value);
         }
 
         public string AsciiRepresentation
@@ -90,8 +76,6 @@ namespace Tubes3.ViewModels
             _uploadedImage = null;
             _matchedImage = null;
             _personData = string.Empty;
-            _executionTime = string.Empty;
-            _matchPercentage = string.Empty;
             _asciiRepresentation = string.Empty;
             _timeElapsed = string.Empty;
             _similarityPercentage = string.Empty;
@@ -125,7 +109,7 @@ namespace Tubes3.ViewModels
                         UploadedImage = bitmap;
 
                         // Convert image to binary and then to ASCII - 8 bit
-                        var binaryData = ImageProcessor.ConvertBitmapToAscii(stream);
+                        var AsciiRepresentation = ImageProcessor.ConvertBitmapToAscii(stream);
 
                         var asciiFilePath = "halo.txt"; // buat cek hasil konversi
                         File.WriteAllText(asciiFilePath, AsciiRepresentation);
@@ -154,12 +138,12 @@ namespace Tubes3.ViewModels
             }
 
             stopwatch.Stop();
-            ExecutionTime = $"Execution Time: {stopwatch.ElapsedMilliseconds} ms";
+            TimeElapsed = $"{stopwatch.ElapsedMilliseconds} ms";
 
             // Simulate finding a match
             MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
             PersonData = "Name: Rudi Kurniawan\nID: 23123123";
-            MatchPercentage = "Match Percentage: 95%";
+            SimilarityPercentage = "95%";
             return Task.CompletedTask;
         }
     }

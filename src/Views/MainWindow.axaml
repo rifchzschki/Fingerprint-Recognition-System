@@ -97,7 +97,7 @@
             <StackPanel Margin="300, 50, 300, 72"
                         Orientation="Horizontal"
                         Spacing="500">
-                <Panel>
+                <StackPanel>
                     <TextBlock Text="Waktu Pencarian"
                                FontSize="20"
                                FontFamily="Inter"
@@ -108,8 +108,8 @@
                                FontWeight="Bold"
                                FontFamily="Inter"
                                Foreground="#0E0706" />
-                </Panel>
-                <Panel>
+                </StackPanel>
+                <StackPanel>
                     <TextBlock Text="Persentase Kecocokan"
                                FontSize="20"
                                FontFamily="Inter"
@@ -120,7 +120,7 @@
                                FontWeight="Bold"
                                FontFamily="Inter"
                                Foreground="#0E0706" />
-                </Panel>
+                </StackPanel>
             </StackPanel>
             <TextBlock Text="Biodata Hasil Pencarian"
                        TextWrapping="Wrap"
