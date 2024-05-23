@@ -27,15 +27,13 @@ namespace Tubes3.Models
 #pragma warning disable CA1416 // Validate platform compatibility
                     var pixelColor = bitmap.GetPixel(x, y);
 #pragma warning restore CA1416 // Validate platform compatibility
-                    int grayValue = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+                    int grayValue = ToGrayscale(pixelColor);
                     var binaryString = Convert.ToString(grayValue, 2).PadLeft(8, '0');
                     var asciiChar = BinaryToAscii(binaryString);
                     asciiArt.Append(asciiChar);
                 }
-#pragma warning restore CA1416 // Validate platform compatibility
                 asciiArt.Append(Environment.NewLine);
             }
-#pragma warning restore CA1416 // Validate platform compatibility
 
             return asciiArt.ToString();
         }

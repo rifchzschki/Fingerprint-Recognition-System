@@ -15,8 +15,6 @@ namespace Tubes3.ViewModels
         private Bitmap? _uploadedImage;
         private Bitmap? _matchedImage;
         private string _personData;
-        private string _executionTime;
-        private string _matchPercentage;
 
         private string _asciiRepresentation;
 
@@ -113,7 +111,7 @@ namespace Tubes3.ViewModels
                         UploadedImage = bitmap;
 
                         // Convert image to binary and then to ASCII - 8 bit
-                        var binaryData = ImageProcessor.ConvertBitmapToAscii(stream);
+                        var AsciiRepresentation = ImageProcessor.ConvertBitmapToAscii(stream);
 
                         var asciiFilePath = "halo.txt"; // buat cek hasil konversi
                         File.WriteAllText(asciiFilePath, AsciiRepresentation);
