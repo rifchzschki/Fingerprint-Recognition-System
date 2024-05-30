@@ -78,16 +78,16 @@ CREATE TABLE `sidik_jari` (
 LOCK TABLES `sidik_jari` WRITE;
 /*!40000 ALTER TABLE `sidik_jari` DISABLE KEYS */;
 INSERT INTO `sidik_jari` VALUES
-('test/sidik_jari0.jpg','John Doe'),
-('test/sidik_jari1.jpg','Jane Smith'),
-('test/sidik_jari2.jpg','Alice Johnson'),
-('test/sidik_jari3.jpg','Robert Brown'),
-('test/sidik_jari4.jpg','Michael Williams'),
-('test/sidik_jari5.jpg','David Jones'),
-('test/sidik_jari6.jpg','Emily Garcia'),
-('test/sidik_jari7.jpg','Sophia Martinez'),
-('test/sidik_jari8.jpg','Daniel Wilson'),
-('test/sidik_jari9.jpg','Mia Anderson');
+('test/sidik_jari0.BMP','John Doe'),
+('test/sidik_jari1.BMP','Jane Smith'),
+('test/sidik_jari2.BMP','Alice Johnson'),
+('test/sidik_jari3.BMP','Robert Brown'),
+('test/sidik_jari4.BMP','Michael Williams'),
+('test/sidik_jari5.BMP','David Jones'),
+('test/sidik_jari6.BMP','Emily Garcia'),
+('test/sidik_jari7.BMP','Sophia Martinez'),
+('test/sidik_jari8.BMP','Daniel Wilson'),
+('test/sidik_jari9.BMP','Mia Anderson');
 /*!40000 ALTER TABLE `sidik_jari` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
