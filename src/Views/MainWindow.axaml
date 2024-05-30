@@ -8,10 +8,10 @@
         d:DesignHeight="810"
         x:Class="Tubes3.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/fingerprint-logo.png"
         Background="#FDF8F7"
         WindowState="Maximized"
-        Title="Tubes3">
+        Title="KacaprukReborn">
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
