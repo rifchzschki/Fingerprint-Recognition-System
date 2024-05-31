@@ -105,15 +105,5 @@ namespace Tubes3.Models
         public string? Nama { get; set; }
     }
 
-    public class Test{
-        static void Main(){
-            DatabaseHelper dh = new DatabaseHelper();
-            List<Biodata> biodatas=dh.GetBiodatas();
 
-        
-            for(int i=0; i<biodatas.Count;i++){
-                Console.WriteLine(biodatas[i].Nama);
-            }   
-        }
-    }
 }
