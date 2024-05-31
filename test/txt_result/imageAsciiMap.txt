@@ -1,0 +1,4 @@
+Hello, world!
+This is a text file created by C#.
+This write to file method is only for testing purpose.
+Your imageAsciiMap are:
