@@ -2,6 +2,8 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System;
+using System.Collections.Generic;
+
 namespace Tubes3.Models
 {
     public static class ImageProcessor
@@ -66,6 +68,33 @@ namespace Tubes3.Models
             var middleLineLength = middleLine.Length;
             var pattern = middleLine.Substring(middleLineLength / 2 - 15, 30);
             return pattern;
+        }
+
+        // Process all images in the database to ASCII
+        public static Dictionary<string, (string, string?)> ProcessImagesToAscii(string databasePath)
+        {
+            var dbHelper = new DatabaseHelper();
+            List<SidikJari> sidikJaris = dbHelper.GetSidikJaris();
+            var imageAsciiMap = new Dictionary<string, (string, string?)>();
+
+            foreach (var sidik in sidikJaris)
+            {
+                // Check if sidik.Berkas_citra not null and the file exists
+                if (!File.Exists("../" + sidik.Berkas_citra) || sidik.Berkas_citra == null)
+                {
+                    // Print error (tapi malah gbs ke print anjir)
+                    Console.WriteLine($"Path img null or file doesn't exist: {sidik.Berkas_citra}");
+                    continue;
+                }
+                using (var stream = File.OpenRead("../" + sidik.Berkas_citra))
+                {
+                    Test.TestHere("../"+sidik.Berkas_citra);
+                    var result = ConvertBitmapToAscii(stream);
+                    imageAsciiMap[sidik.Berkas_citra] = (result, sidik.Nama);
+                }
+            }
+
+            return imageAsciiMap;
         }
 
     }
