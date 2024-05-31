@@ -66,6 +66,12 @@ namespace Tubes3.ViewModels
             set => this.RaiseAndSetIfChanged(ref _selectedAlgorithm, value);
         }
 
+
+        public string pattern { get; set; }
+
+
+
+        [Obsolete]
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
 
@@ -80,6 +86,7 @@ namespace Tubes3.ViewModels
             _timeElapsed = string.Empty;
             _similarityPercentage = string.Empty;
             _selectedAlgorithm = "0";
+            pattern = string.Empty;
 
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
@@ -111,8 +118,11 @@ namespace Tubes3.ViewModels
                         // Convert image to binary and then to ASCII - 8 bit
                         var AsciiRepresentation = ImageProcessor.ConvertBitmapToAscii(stream);
 
-                        var asciiFilePath = "halo.txt"; // buat cek hasil konversi
-                        File.WriteAllText(asciiFilePath, AsciiRepresentation);
+                        // ambil pattern dari 30 pixel di baris tengah
+                        pattern = ImageProcessor.GetPatternFromAscii(AsciiRepresentation);
+
+                        // var asciiFilePath = "halo.txt"; // buat cek hasil konversi
+                        // File.WriteAllText(asciiFilePath, AsciiRepresentation);
                     }
                 }
             }
@@ -120,29 +130,53 @@ namespace Tubes3.ViewModels
 
         private Task SearchFingerprint()
         {
+
             if (UploadedImage == null)
             {
                 return Task.CompletedTask;
             }
 
+            // LAKUIN QUERY KE DATABASE DISINI
+
+            string TextResult = "";
             // Simulate fingerprint matching logic
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
             if (SelectedAlgorithm == "0") // KMP
             {
-                // Proses pake algoritma KMP
+                // String TextResult = KMP.FindPatternInTexts(pattern, TEXTs);
             }
             else // BM
             {
                 // Proses pake algoritma BM
             }
-
             stopwatch.Stop();
             TimeElapsed = $"{stopwatch.ElapsedMilliseconds} ms";
 
-            // Simulate finding a match
+            // ambil gambar dari database
+
+            // tampilin gambar
             MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
-            PersonData = "Name: Rudi Kurniawan\nID: 23123123";
+
+            // ambil biodata dari database
+            string nama_dummy = "Davd jn35";
+            // tampilin biodata
+
+            // StringBuilder sb = new StringBuilder();
+            // foreach (DataRow row in bio.Rows)
+            // {
+            //     foreach (var item in row.ItemArray)
+            //     {
+            //         sb.Append(item);
+            //         sb.Append(" ");
+            //     }
+            //     sb.Append("\n");
+            // }
+
+            // PersonData = sb.ToString();
+
+
+            // Cari similaritas
             SimilarityPercentage = "95%";
             return Task.CompletedTask;
         }
