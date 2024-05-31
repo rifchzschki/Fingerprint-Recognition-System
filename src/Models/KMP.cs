@@ -75,13 +75,13 @@ class KMP
         return false;
     }
 
-    // Fungsi driver utama untuk multithreading
-    public static string? FindPatternInTexts(string pattern, List<string> listOfText)
+    // Fungsi driver utama untuk multithreading, map isinya adalah dictionary yang berisi ascii sama tuple (path, nama orangnya)
+    public static string? FindPatternInTexts(string pattern, Dictionary<string, (string, string)> map)
     {
         var cancellationTokenSource = new CancellationTokenSource();
         var tasks = new List<Task<string?>>();
 
-        foreach (var text in listOfText)
+        foreach (var text in map.Keys)
         {
             tasks.Add(Task.Run(() =>
             {
@@ -106,34 +106,10 @@ class KMP
         {
             if (task.IsCompletedSuccessfully && task.Result != null)
             {
-                return task.Result;
+                return map[task.Result].Item2;
             }
         }
 
         return null;
-    }
-
-    public static void DriverKMP()
-    {
-        string pattern = "ABABC";
-        List<string> listOfText = new List<string>
-        {
-            "ABABDABACDABABCABAB",
-            "BABCABCDABABC",
-            "ABABCABABC",
-            "AABABABCABAB",
-            "ABABABABAB"
-        };
-
-        string result = FindPatternInTexts(pattern, listOfText) ?? "";
-
-        if (result != "")
-        {
-            Console.WriteLine("Text dengan kecocokan: " + result);
-        }
-        else
-        {
-            Console.WriteLine("Tidak ada kecocokan ditemukan.");
-        }
     }
 }
