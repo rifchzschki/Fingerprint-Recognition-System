@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5C794F93-7534-44ED-9E81-3693F2BC0E4D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tubes3", "src\Tubes3\Tubes3.csproj", "{8E83C534-0995-49FA-9B58-EE035087B234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tubes3", "src\Tubes3.csproj", "{8E83C534-0995-49FA-9B58-EE035087B234}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
