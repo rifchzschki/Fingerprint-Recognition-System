@@ -42,17 +42,19 @@ namespace Tubes3.Models
             return maxLen == 0 ? 1.0 : (double)lcsLen / maxLen;
         }
 
-        // Fungsi untuk menemukan pasangan dengan similaritas tertinggi
-        public static (double, string) FindBestMatch(string target, List<string> candidates)
+        // Fungsi untuk menemukan pasangan dengan similaritas tertinggi, candidates isinya ascii representation dan valuenya path dan namanya.
+        public static (double, string) FindBestMatch(string target, Dictionary<string, (string, string)> candidates)
         {
             var tasks = candidates.Select(candidate =>
-                Task.Run(() =>
+            {
+                return Task.Run(() =>
                 {
-                    double score = SimilarityScore(target, candidate);
-                    return (score, candidate);
-                })).ToArray();
-
-            Task.WaitAll(tasks);
+                    var asciiRepresentation = candidate.Key;
+                    var (path, name) = candidate.Value;
+                    var similarity = SimilarityScore(target, asciiRepresentation);
+                    return (similarity, path);
+                });
+            });
 
             var results = tasks.Select(t => t.Result);
             var bestMatch = results.OrderByDescending(result => result.Item1).First();
