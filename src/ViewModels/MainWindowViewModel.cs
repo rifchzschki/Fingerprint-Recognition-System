@@ -138,7 +138,7 @@ namespace Tubes3.ViewModels
 
             // LAKUIN QUERY KE DATABASE DISINI
 
-            string nama ="";
+            string nama;
             // Simulate fingerprint matching logic
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
@@ -148,6 +148,7 @@ namespace Tubes3.ViewModels
             }
             else // BM
             {
+                nama = "";
                 // Proses pake algoritma BM
             }
             DatabaseHelper dh = new DatabaseHelper();
@@ -158,7 +159,7 @@ namespace Tubes3.ViewModels
                 // handle nama tidak ditemukan
             }else{
                 bio = dh.GetBiodataFromAlay(alay);
-                string nama_dummy = bio.Nama;
+                string? nama_dummy = bio.Nama;
 
             }
             stopwatch.Stop();
