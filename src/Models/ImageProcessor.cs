@@ -54,5 +54,19 @@ namespace Tubes3.Models
             return (color.R + color.G + color.B) / 3;
         }
 
+        /// <summary>
+        /// Mengambil pattern ASCII di baris tengah
+        /// </summary>
+        /// <param name="ascii">ASCII yang ingin diambil patternnya</param>
+        /// <returns>Pattern dari ASCII</returns>
+        public static string GetPatternFromAscii(string ascii)
+        {
+            var lines = ascii.Split(Environment.NewLine);
+            var middleLine = lines[lines.Length / 2];
+            var middleLineLength = middleLine.Length;
+            var pattern = middleLine.Substring(middleLineLength / 2 - 15, 30);
+            return pattern;
+        }
+
     }
 }
