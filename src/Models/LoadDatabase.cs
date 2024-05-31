@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using MySql.Data.MySqlClient; // Menggunakan namespace MySql.Data.MySqlClient
 
 
@@ -61,7 +62,7 @@ namespace Tubes3.Models
 
             connection.Open();
 
-            string query = "SELECT * FROM biodata;";
+            string query = "SELECT * FROM sidik_jari;";
             // Membuat objek perintah SQL
             using (MySqlCommand command = new MySqlCommand(query, connection)) // Menggunakan MySqlCommand
             {
@@ -84,31 +85,35 @@ namespace Tubes3.Models
             return sidikJaris;
         }
 
-        public Biodata GetBiodataFromAlay(string alay){
+        public Biodata? GetBiodataFromAlay(string alay){
             connection.Open();
             Biodata bio;
-            string query = "SELECT * FROM biodata where nama = " + alay +";";
+            string query = "SELECT * FROM biodata where nama = \'" + alay +"\';";
+            Test.TestHere(query);
             using (MySqlCommand command = new MySqlCommand(query, connection)) // Menggunakan MySqlCommand
             {
                 using (MySqlDataReader reader = command.ExecuteReader()){
-                    bio =  new Biodata
-                    {
-                        Nik = reader.GetString(0),
-                        Nama = reader.GetString(1),
-                        Tempat_lahir = reader.GetString(2),
-                        Tanggal_lahir = reader.GetDateTime(3),
-                        Jenis_kelamin = reader.GetString(4),
-                        Golongan_darah = reader.GetString(5),
-                        Alamat = reader.GetString(6),
-                        Agama = reader.GetString(7),
-                        Status_perkawinan = reader.GetString(8),
-                        Pekerjaan = reader.GetString(9),
-                        Kewarganegaraan = reader.GetString(10)
-                    };
+                    while (reader.Read()){
+                        bio =  new Biodata
+                        {
+                            Nik = reader.GetString(0),
+                            Nama = reader.GetString(1),
+                            Tempat_lahir = reader.GetString(2),
+                            Tanggal_lahir = reader.GetDateTime(3),
+                            Jenis_kelamin = reader.GetString(4),
+                            Golongan_darah = reader.GetString(5),
+                            Alamat = reader.GetString(6),
+                            Agama = reader.GetString(7),
+                            Status_perkawinan = reader.GetString(8),
+                            Pekerjaan = reader.GetString(9),
+                            Kewarganegaraan = reader.GetString(10)
+                        };
+                        return bio;
+                    }
                 }
             }
             connection.Close();
-            return bio;
+            return null;
         }
 
         public List<string> GetNamaFromAlay(){
@@ -118,7 +123,10 @@ namespace Tubes3.Models
             using (MySqlCommand command = new MySqlCommand(query, connection)) // Menggunakan MySqlCommand
             {
                 using (MySqlDataReader reader = command.ExecuteReader()){
-                    alays.Add(reader.GetString(0));
+                    while (reader.Read())
+                    {
+                        alays.Add(reader.GetString(0));
+                    }
                 }
             }
             connection.Close();
@@ -139,6 +147,21 @@ namespace Tubes3.Models
         public string? Status_perkawinan { get; set; }
         public string? Pekerjaan { get; set; }
         public string? Kewarganegaraan { get; set; }
+
+        public StringBuilder showInfo(){
+            StringBuilder sb = new StringBuilder();
+            sb.Append("NIK: "); sb.Append(Nik); sb.Append("\n");
+            sb.Append("Nama: "); sb.Append(Nama); sb.Append("\n");
+            sb.Append("Tempat, Tanggal lahir: "); sb.Append(Tempat_lahir); sb.Append(", "); sb.Append(Tanggal_lahir); sb.Append("\n");
+            sb.Append("Jenis Kelamin: "); sb.Append(Jenis_kelamin); sb.Append("\n");
+            sb.Append("Golongan Darah: "); sb.Append(Golongan_darah); sb.Append("\n");
+            sb.Append("Alamat: "); sb.Append(Alamat); sb.Append("\n");
+            sb.Append("Agama: "); sb.Append(Agama); sb.Append("\n");
+            sb.Append("Status perkawinan: "); sb.Append(Status_perkawinan); sb.Append("\n");
+            sb.Append("Pekerjaan: "); sb.Append(Pekerjaan); sb.Append("\n");
+            sb.Append("Kewarganeraan: "); sb.Append(Kewarganegaraan); sb.Append("\n");
+            return sb;
+        }
     }
 
     public class SidikJari

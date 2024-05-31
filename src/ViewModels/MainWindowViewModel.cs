@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reactive;
+using System.Text;
 using System.Threading.Tasks;
 using Tubes3.Models;
 
@@ -88,7 +89,6 @@ namespace Tubes3.ViewModels
             _selectedAlgorithm = "0";
             pattern = string.Empty;
 
-            Dictionary<string, (string, string?)> imageAsciiMap = ImageProcessor.ProcessImagesToAscii("databasePath");
 
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
@@ -140,13 +140,15 @@ namespace Tubes3.ViewModels
 
             // LAKUIN QUERY KE DATABASE DISINI
 
-            string nama;
+            string? nama;
             // Simulate fingerprint matching logic
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
+            Dictionary<string, (string, string?)> imageAsciiMap = ImageProcessor.ProcessImagesToAscii();
             if (SelectedAlgorithm == "0") // KMP
             {
-                // nama = KMP.FindPatternInTexts(pattern, TEXTs);
+                nama = KMP.FindPatternInTexts(pattern, imageAsciiMap);
+
             }
             else // BM
             {
@@ -154,14 +156,28 @@ namespace Tubes3.ViewModels
                 // Proses pake algoritma BM
             }
             DatabaseHelper dh = new DatabaseHelper();
+            Test.TestHere("a");
             List<string> alays= dh.GetNamaFromAlay();
+            Test.TestHere("b");
             Biodata bio;
+            Test.TestHere("c");
             string? alay = ConvertAlay.findAlayMatch(alays, nama);
+            Test.TestHere("d");
+
             if(alay == null){
                 // handle nama tidak ditemukan
             }else{
+                List<Biodata> b = new List<Biodata>();
                 bio = dh.GetBiodataFromAlay(alay);
-                string? nama_dummy = bio.Nama;
+                b.Add(bio);
+                Test.TestHere(b);
+                // string? nama_dummy = bio.Nama;
+                
+                // ambil biodata dari database
+                // tampilin biodata
+
+                StringBuilder sb = bio.showInfo();
+                PersonData = sb.ToString();
 
             }
             stopwatch.Stop();
@@ -172,21 +188,6 @@ namespace Tubes3.ViewModels
             // tampilin gambar
             MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
 
-            // ambil biodata dari database
-            // tampilin biodata
-
-            // StringBuilder sb = new StringBuilder();
-            // foreach (DataRow row in bio.Rows)
-            // {
-            //     foreach (var item in row.ItemArray)
-            //     {
-            //         sb.Append(item);
-            //         sb.Append(" ");
-            //     }
-            //     sb.Append("\n");
-            // }
-
-            // PersonData = sb.ToString();
 
 
             // Cari similaritas

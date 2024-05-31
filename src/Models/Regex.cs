@@ -29,8 +29,12 @@ public class ConvertAlay{
         });
     }
 
-    private bool validasi(string alay, string ori)
+    private bool validasi(string alay, string? ori)
     {
+        if(ori == null){
+            return false;
+        }
+        
         // ubah awal dan acuan ke bentuk lower case
         // ubah angka yang terdapat pada alay menjadi huruf
 
@@ -53,7 +57,7 @@ public class ConvertAlay{
 
         int i = 0;
         int j = 0;
-        while (i < ori.Length)
+        while (j < alay.Length)
         {
             // Console.WriteLine(ori[i]);
             // Console.WriteLine(i);
@@ -83,19 +87,20 @@ public class ConvertAlay{
             }
             j++;
             i++;
-
+            // Test.TestHere(ori);
         }
         return true;
 
     }
 
-    public static string? findAlayMatch(List<string> alays, string asli)
+    public static string? findAlayMatch(List<string> alays, string? asli)
     {
         ConvertAlay program = new ConvertAlay();
         // string acuan = "buntng";
         // string input = "bunting";
         foreach (var alay in alays){
             if (program.validasi(alay, asli)){
+                // Test.TestHere(alay);
                 return alay;
             }
         }

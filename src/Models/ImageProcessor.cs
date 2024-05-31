@@ -71,13 +71,15 @@ namespace Tubes3.Models
         }
 
         // Process all images in the database to ASCII
-        public static Dictionary<string, (string, string?)> ProcessImagesToAscii(string databasePath)
+        public static Dictionary<string, (string, string?)> ProcessImagesToAscii()
         {
             var dbHelper = new DatabaseHelper();
             List<SidikJari> sidikJaris = dbHelper.GetSidikJaris();
-            var imageAsciiMap = new Dictionary<string, (string, string?)>();
+            // Test.TestHere(sidikJaris);
 
-            foreach (var sidik in sidikJaris)
+            var imageAsciiMap = new Dictionary<string?, (string, string?)>();
+
+            foreach (SidikJari sidik in sidikJaris)
             {
                 // Check if sidik.Berkas_citra not null and the file exists
                 if (!File.Exists("../" + sidik.Berkas_citra) || sidik.Berkas_citra == null)
@@ -86,11 +88,12 @@ namespace Tubes3.Models
                     Console.WriteLine($"Path img null or file doesn't exist: {sidik.Berkas_citra}");
                     continue;
                 }
+                // Test.TestHere("../"+sidik.Berkas_citra.ToString());
                 using (var stream = File.OpenRead("../" + sidik.Berkas_citra))
                 {
-                    Test.TestHere("../"+sidik.Berkas_citra);
+                    // Test.TestHere("../"+sidik.Berkas_citra);
                     var result = ConvertBitmapToAscii(stream);
-                    imageAsciiMap[sidik.Berkas_citra] = (result, sidik.Nama);
+                    imageAsciiMap[result] = (sidik.Berkas_citra, sidik.Nama);
                 }
             }
 

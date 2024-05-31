@@ -87,7 +87,7 @@ public static class Test {
     }
 
     // Test to print a dictionary of imageAsciiMap<ascii, (path, nama)>
-    public static void TestHere(Dictionary<string, (string, string)> imageAsciiMap) {
+    public static void TestHere(Dictionary<string, (string, string?)> imageAsciiMap) {
         // Specify the path to your text file
         string filePath = "../test/txt_result/imageAsciiMap.txt";
 

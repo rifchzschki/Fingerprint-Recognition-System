@@ -76,7 +76,7 @@ class KMP
     }
 
     // Fungsi driver utama untuk multithreading, map isinya adalah dictionary yang berisi ascii sama tuple (path, nama orangnya)
-    public static string? FindPatternInTexts(string pattern, Dictionary<string, (string, string)> map)
+    public static string? FindPatternInTexts(string pattern, Dictionary<string, (string, string?)> map)
     {
         var cancellationTokenSource = new CancellationTokenSource();
         var tasks = new List<Task<string?>>();
