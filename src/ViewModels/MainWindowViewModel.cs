@@ -88,6 +88,8 @@ namespace Tubes3.ViewModels
             _selectedAlgorithm = "0";
             pattern = string.Empty;
 
+            Dictionary<string, (string, string?)> imageAsciiMap = ImageProcessor.ProcessImagesToAscii("databasePath");
+
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
         }
