@@ -15,10 +15,13 @@ namespace Tubes3.ViewModels
         private Bitmap? _uploadedImage;
         private Bitmap? _matchedImage;
         private string _personData;
-        private string _executionTime;
-        private string _matchPercentage;
 
         private string _asciiRepresentation;
+
+        private string _timeElapsed;
+
+        private string _selectedAlgorithm;
+        private string _similarityPercentage;
 
         public Bitmap? UploadedImage
         {
@@ -38,22 +41,29 @@ namespace Tubes3.ViewModels
             set => this.RaiseAndSetIfChanged(ref _personData, value);
         }
 
-        public string ExecutionTime
-        {
-            get => _executionTime;
-            set => this.RaiseAndSetIfChanged(ref _executionTime, value);
-        }
-
-        public string MatchPercentage
-        {
-            get => _matchPercentage;
-            set => this.RaiseAndSetIfChanged(ref _matchPercentage, value);
-        }
-
         public string AsciiRepresentation
         {
             get => _asciiRepresentation;
             set => this.RaiseAndSetIfChanged(ref _asciiRepresentation, value);
+        }
+
+        public string TimeElapsed
+        {
+            get => _timeElapsed;
+            set => this.RaiseAndSetIfChanged(ref _timeElapsed, value);
+        }
+
+        public string SimilarityPercentage
+        {
+            get => _similarityPercentage;
+            set => this.RaiseAndSetIfChanged(ref _similarityPercentage, value);
+        }
+
+
+        public string SelectedAlgorithm
+        {
+            get => _selectedAlgorithm;
+            set => this.RaiseAndSetIfChanged(ref _selectedAlgorithm, value);
         }
 
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
@@ -66,9 +76,10 @@ namespace Tubes3.ViewModels
             _uploadedImage = null;
             _matchedImage = null;
             _personData = string.Empty;
-            _executionTime = string.Empty;
-            _matchPercentage = string.Empty;
             _asciiRepresentation = string.Empty;
+            _timeElapsed = string.Empty;
+            _similarityPercentage = string.Empty;
+            _selectedAlgorithm = "0";
 
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
@@ -98,8 +109,7 @@ namespace Tubes3.ViewModels
                         UploadedImage = bitmap;
 
                         // Convert image to binary and then to ASCII - 8 bit
-                        var binaryData = ImageProcessor.ConvertImageToBinary(new Bitmap(filePath));
-                        AsciiRepresentation = ImageProcessor.setStringtoASCII(binaryData);
+                        var AsciiRepresentation = ImageProcessor.ConvertBitmapToAscii(stream);
 
                         var asciiFilePath = "halo.txt"; // buat cek hasil konversi
                         File.WriteAllText(asciiFilePath, AsciiRepresentation);
@@ -108,26 +118,33 @@ namespace Tubes3.ViewModels
             }
         }
 
-        private async Task SearchFingerprint()
+        private Task SearchFingerprint()
         {
             if (UploadedImage == null)
             {
-                // Handle the case where no image is uploaded
-                return;
+                return Task.CompletedTask;
             }
 
             // Simulate fingerprint matching logic
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-            await Task.Delay(1000); // Simulate a delay for the search operation
+            if (SelectedAlgorithm == "0") // KMP
+            {
+                // Proses pake algoritma KMP
+            }
+            else // BM
+            {
+                // Proses pake algoritma BM
+            }
 
             stopwatch.Stop();
-            ExecutionTime = $"Execution Time: {stopwatch.ElapsedMilliseconds} ms";
+            TimeElapsed = $"{stopwatch.ElapsedMilliseconds} ms";
 
             // Simulate finding a match
             MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
             PersonData = "Name: Rudi Kurniawan\nID: 23123123";
-            MatchPercentage = "Match Percentage: 95%";
+            SimilarityPercentage = "95%";
+            return Task.CompletedTask;
         }
     }
 }
