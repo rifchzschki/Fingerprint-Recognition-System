@@ -1,0 +1,44 @@
+Hello, world!
+This is a text file created by C#.
+This write to file method is only for testing purpose.
+Your sidikJaris are:
+
+John Doe
+test/sidik_jari0.BMP
+
+
+Jane Smith
+test/sidik_jari1.BMP
+
+
+Alice Johnson
+test/sidik_jari2.BMP
+
+
+Robert Brown
+test/sidik_jari3.BMP
+
+
+Michael Williams
+test/sidik_jari4.BMP
+
+
+David Jones
+test/sidik_jari5.BMP
+
+
+Emily Garcia
+test/sidik_jari6.BMP
+
+
+Sophia Martinez
+test/sidik_jari7.BMP
+
+
+Daniel Wilson
+test/sidik_jari8.BMP
+
+
+Mia Anderson
+test/sidik_jari9.BMP
+
