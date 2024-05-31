@@ -2,10 +2,8 @@ using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
-class Program
-{
-    void parseAngka(ref string str)
-    {
+public class ConvertAlay{
+    private void parseAngka(ref string str){
         Dictionary<char, char> pasangan = new Dictionary<char, char>();
         // Menambahkan elemen ke dalam map
         pasangan['4'] = 'a';
@@ -22,7 +20,7 @@ class Program
             char c = m.Value[0];
             if (pasangan.ContainsKey(c))
             {
-                return (pasangan[c].ToString());
+                return pasangan[c].ToString();
             }
             else
             {
@@ -31,7 +29,7 @@ class Program
         });
     }
 
-    bool validasi(string alay, string ori)
+    private bool validasi(string alay, string ori)
     {
         // ubah awal dan acuan ke bentuk lower case
         // ubah angka yang terdapat pada alay menjadi huruf
@@ -91,21 +89,17 @@ class Program
 
     }
 
-    static void regexDriver()
+    public static string? findAlayMatch(List<string> alays, string asli)
     {
-        Program program = new Program();
-        string acuan = "buntng";
-        string input = "bunting";
-
-        if (program.validasi(acuan, input))
-        {
-            Console.WriteLine("Ya");
+        ConvertAlay program = new ConvertAlay();
+        // string acuan = "buntng";
+        // string input = "bunting";
+        foreach (var alay in alays){
+            if (program.validasi(alay, asli)){
+                return alay;
+            }
         }
-        else
-        {
-            Console.WriteLine("Tidak");
+        return null;
 
-        }
-        Console.WriteLine("Hasil penggantian: " + input);
     }
 }

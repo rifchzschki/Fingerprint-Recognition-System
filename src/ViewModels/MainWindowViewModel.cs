@@ -138,17 +138,28 @@ namespace Tubes3.ViewModels
 
             // LAKUIN QUERY KE DATABASE DISINI
 
-            string TextResult = "";
+            string nama ="";
             // Simulate fingerprint matching logic
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
             if (SelectedAlgorithm == "0") // KMP
             {
-                // String TextResult = KMP.FindPatternInTexts(pattern, TEXTs);
+                // nama = KMP.FindPatternInTexts(pattern, TEXTs);
             }
             else // BM
             {
                 // Proses pake algoritma BM
+            }
+            DatabaseHelper dh = new DatabaseHelper();
+            List<string> alays= dh.GetNamaFromAlay();
+            Biodata bio;
+            string? alay = ConvertAlay.findAlayMatch(alays, nama);
+            if(alay == null){
+                // handle nama tidak ditemukan
+            }else{
+                bio = dh.GetBiodataFromAlay(alay);
+                string nama_dummy = bio.Nama;
+
             }
             stopwatch.Stop();
             TimeElapsed = $"{stopwatch.ElapsedMilliseconds} ms";
@@ -159,7 +170,6 @@ namespace Tubes3.ViewModels
             MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
 
             // ambil biodata dari database
-            string nama_dummy = "Davd jn35";
             // tampilin biodata
 
             // StringBuilder sb = new StringBuilder();

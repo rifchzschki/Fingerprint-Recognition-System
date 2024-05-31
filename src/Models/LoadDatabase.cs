@@ -50,6 +50,7 @@ namespace Tubes3.Models
                     
                 }
             }
+            connection.Close();
 
             return biodatas;
         }
@@ -58,29 +59,70 @@ namespace Tubes3.Models
         {
             var sidikJaris = new List<SidikJari>();
 
-        
             connection.Open();
 
-            var command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM sidik_jari";
-            // command.CommandText = "SELECT Id, Name, Email FROM Users";
-
-            using (MySqlDataReader reader = command.ExecuteReader())
+            string query = "SELECT * FROM biodata;";
+            // Membuat objek perintah SQL
+            using (MySqlCommand command = new MySqlCommand(query, connection)) // Menggunakan MySqlCommand
             {
-                while (reader.Read())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    var sidikJari = new SidikJari
+                    while (reader.Read())
                     {
-                        Berkas_citra = reader.GetString(0),
-                        Nama = reader.GetString(1)
-                    };
+                        var sidikJari = new SidikJari
+                        {
+                            Berkas_citra = reader.GetString(0),
+                            Nama = reader.GetString(1)
+                        };
 
-                    sidikJaris.Add(sidikJari);
+                        sidikJaris.Add(sidikJari);
+                    }
                 }
             }
-            
+            connection.Close();
 
             return sidikJaris;
+        }
+
+        public Biodata GetBiodataFromAlay(string alay){
+            connection.Open();
+            Biodata bio;
+            string query = "SELECT * FROM biodata where nama = " + alay +";";
+            using (MySqlCommand command = new MySqlCommand(query, connection)) // Menggunakan MySqlCommand
+            {
+                using (MySqlDataReader reader = command.ExecuteReader()){
+                    bio =  new Biodata
+                    {
+                        Nik = reader.GetString(0),
+                        Nama = reader.GetString(1),
+                        Tempat_lahir = reader.GetString(2),
+                        Tanggal_lahir = reader.GetDateTime(3),
+                        Jenis_kelamin = reader.GetString(4),
+                        Golongan_darah = reader.GetString(5),
+                        Alamat = reader.GetString(6),
+                        Agama = reader.GetString(7),
+                        Status_perkawinan = reader.GetString(8),
+                        Pekerjaan = reader.GetString(9),
+                        Kewarganegaraan = reader.GetString(10)
+                    };
+                }
+            }
+            connection.Close();
+            return bio;
+        }
+
+        public List<string> GetNamaFromAlay(){
+            connection.Open();
+            List<string> alays = new List<string>();
+            string query = "SELECT nama FROM biodata;";
+            using (MySqlCommand command = new MySqlCommand(query, connection)) // Menggunakan MySqlCommand
+            {
+                using (MySqlDataReader reader = command.ExecuteReader()){
+                    alays.Add(reader.GetString(0));
+                }
+            }
+            connection.Close();
+            return alays;
         }
     }
 
