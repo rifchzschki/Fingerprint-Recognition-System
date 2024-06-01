@@ -118,7 +118,7 @@ namespace Tubes3.ViewModels
                         UploadedImage = bitmap;
 
                         // Convert image to binary and then to ASCII - 8 bit
-                        var AsciiRepresentation = ImageProcessor.ConvertBitmapToAscii(stream);
+                        AsciiRepresentation = ImageProcessor.ConvertBitmapToAscii(stream);
 
                         // ambil pattern dari 30 pixel di baris tengah
                         pattern = ImageProcessor.GetPatternFromAscii(AsciiRepresentation);
@@ -153,28 +153,46 @@ namespace Tubes3.ViewModels
             else // BM
             {
                 nama = BM.FindPatternInTexts(pattern, imageAsciiMap);
-                Test.TestHere(nama);
                 // Proses pake algoritma BM
             }
+
+            if (nama is null)
+            {
+                double persentaseSimilarity;
+                string? tempNama;
+                (persentaseSimilarity, tempNama) = Similarity.FindBestMatch(AsciiRepresentation, imageAsciiMap);
+                SimilarityPercentage = persentaseSimilarity.ToString() + "%";
+                nama = tempNama;
+            }
+            else
+            {
+                SimilarityPercentage = "100%";
+            }
+
+
             DatabaseHelper dh = new DatabaseHelper();
             // Test.TestHere("a");
-            List<string> alays= dh.GetNamaFromAlay();
+            List<string> alays = dh.GetNamaFromAlay();
             // Test.TestHere("b");
             Biodata bio;
             // Test.TestHere("c");
             string? alay = ConvertAlay.findAlayMatch(alays, nama);
             // Test.TestHere("d");
 
-            if(alay == null){
+
+            if (alay == null)
+            {
                 // handle nama tidak ditemukan
                 PersonData = "Tidak Ditemukan";
-            }else{
+            }
+            else
+            {
                 List<Biodata> b = new List<Biodata>();
                 bio = dh.GetBiodataFromAlay(alay);
                 b.Add(bio);
                 Test.TestHere(b);
                 // string? nama_dummy = bio.Nama;
-                
+
                 // ambil biodata dari database
                 // tampilin biodata
 
@@ -188,12 +206,20 @@ namespace Tubes3.ViewModels
             // ambil gambar dari database
 
             // tampilin gambar
-            MatchedImage = UploadedImage; // For demonstration, just use the uploaded image as matched image
+            foreach (var sidik in imageAsciiMap)
+            {
+                if (sidik.Value.Item2 == nama)
+                {
+                    using (var stream = File.OpenRead("../" + sidik.Value.Item1))
+                    {
+                        var bitmap = new Bitmap(stream);
+                        MatchedImage = bitmap;
+                    }
+                    break;
+                }
+            }
 
 
-
-            // Cari similaritas
-            SimilarityPercentage = "95%";
             return Task.CompletedTask;
         }
     }
