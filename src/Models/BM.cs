@@ -52,7 +52,7 @@ class BM {
  
             // jika j = -1, maka pola ditemukan
             if (j < 0) {
-                Console.WriteLine("Patterns occur at shift = " + s);
+                // Console.WriteLine("Patterns occur at shift = " + s);
  
                 // Geser pola agar karakter selanjutnya di teks sejajar dengan kemunculan terakhirnya di pola
                 // Kondisi s+m < n diperlukan untuk kasus ketika pola terjadi di akhir teks
@@ -111,11 +111,31 @@ class BM {
         return null;
     }
  
-    // Driver program to testing 
+    // // Driver program to testing 
     // public static void Main()
     // {
     //     string txt = "ABAAABCD";
     //     string pat = "ABC";
-    //     search(txt, pat);
+    //     // Make dummy dictionary
+    //     Dictionary<string, (string, string)> map = new Dictionary<string, (string, string)>();
+    //     map.Add(txt, ("path", "berhasil"));
+    //     map.Add("ABzCD", ("path", "name"));
+    //     map.Add("ABCcD", ("path", "name"));
+    //     map.Add("ABCDas", ("path", "name"));
+    //     map.Add("ABCcsD", ("path", "name"));
+    //     map.Add("ABCcdsD", ("path", "name"));
+    //     map.Add("ABCDcsd", ("path", "name"));
+    //     map.Add("ABCcdD", ("path", "name"));
+
+    //     // string result = FindPatternInTexts(pat, map);
+    //     // Console.WriteLine(FindPatternInTexts(pat, map));
+
+    //     if (FindPatternInTexts(pat, map) != null) {
+    //         Console.WriteLine("Pattern found");
+    //         Console.WriteLine(FindPatternInTexts(pat, map));
+    //     }
+    //     else {
+    //         Console.WriteLine("Pattern not found");
+    //     }
     // }
 }

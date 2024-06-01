@@ -152,20 +152,22 @@ namespace Tubes3.ViewModels
             }
             else // BM
             {
-                nama = "";
+                nama = BM.FindPatternInTexts(pattern, imageAsciiMap);
+                Test.TestHere(nama);
                 // Proses pake algoritma BM
             }
             DatabaseHelper dh = new DatabaseHelper();
-            Test.TestHere("a");
+            // Test.TestHere("a");
             List<string> alays= dh.GetNamaFromAlay();
-            Test.TestHere("b");
+            // Test.TestHere("b");
             Biodata bio;
-            Test.TestHere("c");
+            // Test.TestHere("c");
             string? alay = ConvertAlay.findAlayMatch(alays, nama);
-            Test.TestHere("d");
+            // Test.TestHere("d");
 
             if(alay == null){
                 // handle nama tidak ditemukan
+                PersonData = "Tidak Ditemukan";
             }else{
                 List<Biodata> b = new List<Biodata>();
                 bio = dh.GetBiodataFromAlay(alay);
