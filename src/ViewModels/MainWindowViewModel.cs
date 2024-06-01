@@ -142,9 +142,9 @@ namespace Tubes3.ViewModels
 
             string? nama;
             // Simulate fingerprint matching logic
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
             Dictionary<string, (string, string?)> imageAsciiMap = ImageProcessor.ProcessImagesToAscii();
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             if (SelectedAlgorithm == "0") // KMP
             {
                 nama = KMP.FindPatternInTexts(pattern, imageAsciiMap);
