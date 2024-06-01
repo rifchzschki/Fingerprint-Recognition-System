@@ -45,19 +45,16 @@ namespace Tubes3.Models
         // Fungsi untuk menemukan pasangan dengan similaritas tertinggi, candidates isinya ascii representation dan valuenya path dan namanya.
         public static (double, string) FindBestMatch(string target, Dictionary<string, (string, string)> candidates)
         {
-            var tasks = candidates.Select(candidate =>
+            var bestMatch = candidates.Select(candidate =>
             {
-                return Task.Run(() =>
-                {
-                    var asciiRepresentation = candidate.Key;
-                    var (path, name) = candidate.Value;
-                    var similarity = SimilarityScore(target, asciiRepresentation);
-                    return (similarity, path);
-                });
-            });
-
-            var results = tasks.Select(t => t.Result);
-            var bestMatch = results.OrderByDescending(result => result.Item1).First();
+                var asciiRepresentation = candidate.Key;
+                var (path, name) = candidate.Value;
+                var similarity = SimilarityScore(target, asciiRepresentation);
+                return (similarity, name);
+            })
+            .OrderByDescending(result => result.Item1)
+            .First();
+            bestMatch.Item1 = Math.Round(bestMatch.Item1 * 100, 6);
             return bestMatch;
         }
     }
