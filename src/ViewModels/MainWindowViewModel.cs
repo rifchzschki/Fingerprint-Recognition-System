@@ -161,8 +161,16 @@ namespace Tubes3.ViewModels
                 double persentaseSimilarity;
                 string? tempNama;
                 (persentaseSimilarity, tempNama) = Similarity.FindBestMatch(AsciiRepresentation, imageAsciiMap);
+                // if (persentaseSimilarity >= 40)
+                // {
                 SimilarityPercentage = persentaseSimilarity.ToString() + "%";
                 nama = tempNama;
+                // }
+                // else
+                // {
+                //     SimilarityPercentage = "gaada yang diatas threshold";
+                //     nama = null;
+                // }
             }
             else
             {
