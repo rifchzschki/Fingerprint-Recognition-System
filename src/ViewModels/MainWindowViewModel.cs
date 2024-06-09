@@ -66,8 +66,6 @@ namespace Tubes3.ViewModels
             get => _selectedAlgorithm;
             set => this.RaiseAndSetIfChanged(ref _selectedAlgorithm, value);
         }
-
-
         public string pattern { get; set; }
 
 
@@ -89,7 +87,7 @@ namespace Tubes3.ViewModels
             _selectedAlgorithm = "0";
             pattern = string.Empty;
 
-            
+
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
         }
@@ -138,6 +136,9 @@ namespace Tubes3.ViewModels
                 return Task.CompletedTask;
             }
 
+            // hapus gambar yang sudah ditampilkan 
+            MatchedImage = null;
+
             // LAKUIN QUERY KE DATABASE DISINI
 
             string? nama;
@@ -161,16 +162,16 @@ namespace Tubes3.ViewModels
                 double persentaseSimilarity;
                 string? tempNama;
                 (persentaseSimilarity, tempNama) = Similarity.FindBestMatch(AsciiRepresentation, imageAsciiMap);
-                // if (persentaseSimilarity >= 40)
-                // {
-                SimilarityPercentage = persentaseSimilarity.ToString() + "%";
-                nama = tempNama;
-                // }
-                // else
-                // {
-                //     SimilarityPercentage = "gaada yang diatas threshold";
-                //     nama = null;
-                // }
+                if (persentaseSimilarity >= 70)
+                {
+                    SimilarityPercentage = persentaseSimilarity.ToString() + "%";
+                    nama = tempNama;
+                }
+                else
+                {
+                    SimilarityPercentage = "Tidak ada sidik jari dengan kemiripan di atas 70%";
+                    nama = null;
+                }
             }
             else
             {
@@ -184,7 +185,7 @@ namespace Tubes3.ViewModels
             List<string> alaysCiph = dh.GetNamaFromAlay();
             List<string> alays = new List<string>();
             foreach (string namaAlayChip in alaysCiph)
-            {  
+            {
                 alays.Add(enc.decryption(Convert.FromBase64String(namaAlayChip)));
             }
             Test.TestHere(alays[0]);
