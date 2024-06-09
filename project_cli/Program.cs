@@ -14,6 +14,8 @@ class Program {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"(DONE)\n");
         Console.ForegroundColor = originalForegroundColor;
+
+        Converter.EncryptDatabase();
         
         
         Console.WriteLine($"Input your image filename (without extension): ");

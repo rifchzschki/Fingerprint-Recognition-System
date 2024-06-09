@@ -9,7 +9,7 @@ namespace Tubes3.Models
     // DatabaseHelper class to handle database operations
     public class DatabaseHelper
     {
-        private static string connectionString = "Server=localhost;Database=dummy_stima;Uid=root;"; // String koneksi MySQL/MariaDB
+        private static string connectionString = "Server=localhost;Database=dummy_stima;Uid=root;Pwd=Zxczxc123456;"; // String koneksi MySQL/MariaDB
         private MySqlConnection connection = new MySqlConnection(connectionString);
 
         public DatabaseHelper()      // Constructor to initialize the connection string (databasePath is the path to the .db file)
@@ -89,7 +89,7 @@ namespace Tubes3.Models
             connection.Open();
             Biodata bio;
             string query = "SELECT * FROM biodata where nama = \'" + alay +"\';";
-            Test.TestHere(query);
+            // Test.TestHere(query);
             using (MySqlCommand command = new MySqlCommand(query, connection)) // Menggunakan MySqlCommand
             {
                 using (MySqlDataReader reader = command.ExecuteReader()){
@@ -131,6 +131,122 @@ namespace Tubes3.Models
             }
             connection.Close();
             return alays;
+        }
+
+        public void varcharToText(){
+            // Mengubah VARCHAR ke TEXT di biodata
+            string query1 = "ALTER TABLE biodata MODIFY NIK VARCHAR(255);";
+            string query2 = "ALTER TABLE biodata MODIFY nama TEXT;";
+            string query3 = "ALTER TABLE biodata MODIFY tempat_lahir TEXT;";
+            string query4 = "ALTER TABLE biodata MODIFY golongan_darah TEXT;";
+            string query5 = "ALTER TABLE biodata MODIFY alamat TEXT;";
+            string query6 = "ALTER TABLE biodata MODIFY agama TEXT;";
+            string query7 = "ALTER TABLE biodata MODIFY pekerjaan TEXT;";
+            string query8 = "ALTER TABLE biodata MODIFY kewarganegaraan TEXT;";
+            string query9 = "ALTER TABLE sidik_jari MODIFY nama TEXT;";
+            connection.Open();
+            using (MySqlCommand command = new MySqlCommand(query1, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Nik diubah menjadi varchar(255).");
+            }
+            using (MySqlCommand command = new MySqlCommand(query2, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Nama diubah menjadi TEXT.");
+            }
+            using (MySqlCommand command = new MySqlCommand(query3, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Tempat lahir diubah menjadi TEXT.");
+            }
+            using (MySqlCommand command = new MySqlCommand(query4, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Golongan darah diubah menjadi TEXT.");
+            }
+            using (MySqlCommand command = new MySqlCommand(query5, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Alamat diubah menjadi TEXT.");
+            }
+            using (MySqlCommand command = new MySqlCommand(query6, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Agama diubah menjadi TEXT.");
+            }
+            using (MySqlCommand command = new MySqlCommand(query7, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Pekerjaan diubah menjadi TEXT.");
+            }
+            using (MySqlCommand command = new MySqlCommand(query8, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Kewarganegaraan diubah menjadi TEXT.");
+            }
+            using (MySqlCommand command = new MySqlCommand(query9, connection))
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine("Nama sidik jari diubah menjadi TEXT.");
+            }
+            connection.Close();
+
+        }
+
+        public void UpdateBiodata(Biodata newBiodata, string oldNik)
+        {
+            string query = "UPDATE biodata SET " +
+                        "nik = @newNik, " +
+                        "nama = @nama, " +
+                        "tempat_lahir = @tempat_lahir, " +
+                        "tanggal_lahir = @tanggal_lahir, " +
+                        "jenis_kelamin = @jenis_kelamin, " +
+                        "golongan_darah = @golongan_darah, " +
+                        "alamat = @alamat, " +
+                        "agama = @agama, " +
+                        "status_perkawinan = @status_perkawinan, " +
+                        "pekerjaan = @pekerjaan, " +
+                        "kewarganegaraan = @kewarganegaraan " +
+                        "WHERE nik = @oldNik;";
+
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@newNik", newBiodata.Nik);
+                command.Parameters.AddWithValue("@nama", newBiodata.Nama);
+                command.Parameters.AddWithValue("@tempat_lahir", newBiodata.Tempat_lahir);
+                command.Parameters.AddWithValue("@tanggal_lahir", newBiodata.Tanggal_lahir);
+                command.Parameters.AddWithValue("@jenis_kelamin", newBiodata.Jenis_kelamin);
+                command.Parameters.AddWithValue("@golongan_darah", newBiodata.Golongan_darah);
+                command.Parameters.AddWithValue("@alamat", newBiodata.Alamat);
+                command.Parameters.AddWithValue("@agama", newBiodata.Agama);
+                command.Parameters.AddWithValue("@status_perkawinan", newBiodata.Status_perkawinan);
+                command.Parameters.AddWithValue("@pekerjaan", newBiodata.Pekerjaan);
+                command.Parameters.AddWithValue("@kewarganegaraan", newBiodata.Kewarganegaraan);
+                command.Parameters.AddWithValue("@oldNik", oldNik);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        public void UpdateSidikJari(SidikJari newSidikJari, string oldNama)
+        {
+            string query = "UPDATE sidik_jari SET " +
+                        "berkas_citra = @citra, " +
+                        "nama = @nama " +
+                        "WHERE nama = @oldNama;";
+
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@citra", newSidikJari.Berkas_citra);
+                command.Parameters.AddWithValue("@nama", newSidikJari.Nama);
+                command.Parameters.AddWithValue("@oldNama", oldNama);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
         }
     }
 

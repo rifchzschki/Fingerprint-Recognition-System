@@ -89,7 +89,7 @@ namespace Tubes3.ViewModels
             _selectedAlgorithm = "0";
             pattern = string.Empty;
 
-
+            
             UploadCommand = ReactiveCommand.CreateFromTask(UploadImage);
             SearchCommand = ReactiveCommand.CreateFromTask(SearchFingerprint);
         }
@@ -179,13 +179,19 @@ namespace Tubes3.ViewModels
 
 
             DatabaseHelper dh = new DatabaseHelper();
-            // Test.TestHere("a");
-            List<string> alays = dh.GetNamaFromAlay();
-            // Test.TestHere("b");
+            EncryptionHelper enc = new EncryptionHelper();
+            Test.TestHere("a");
+            List<string> alaysCiph = dh.GetNamaFromAlay();
+            List<string> alays = new List<string>();
+            foreach (string namaAlayChip in alaysCiph)
+            {  
+                alays.Add(enc.decryption(Convert.FromBase64String(namaAlayChip)));
+            }
+            Test.TestHere(alays[0]);
             Biodata bio;
-            // Test.TestHere("c");
+            Test.TestHere("c");
             string? alay = ConvertAlay.findAlayMatch(alays, nama);
-            // Test.TestHere("d");
+            Test.TestHere("d");
 
 
             if (alay == null)
@@ -196,9 +202,12 @@ namespace Tubes3.ViewModels
             else
             {
                 List<Biodata> b = new List<Biodata>();
-                bio = dh.GetBiodataFromAlay(alay);
+                // Test.TestHere(alay);
+                Biodata bioAlay = dh.GetBiodataFromAlay(Convert.ToBase64String(enc.encryption(alay)));
+                // Test.TestHere(bioAlay.Nama);
+                bio = Converter.DecryptBiodata(bioAlay);
+                Test.TestHere(bio.Nama);
                 b.Add(bio);
-                Test.TestHere(b);
                 // string? nama_dummy = bio.Nama;
 
                 // ambil biodata dari database
