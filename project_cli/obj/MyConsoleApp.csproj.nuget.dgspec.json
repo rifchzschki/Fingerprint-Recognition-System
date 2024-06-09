@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\5ANDI\\Ngoding\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj": {}
+    "C:\\Users\\Acer\\OneDrive - Institut Teknologi Bandung\\Institut Teknologi Bandung\\Perkuliahan\\Semester 4\\STIMA\\Tubes 3\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj": {}
   },
   "projects": {
-    "D:\\5ANDI\\Ngoding\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj": {
+    "C:\\Users\\Acer\\OneDrive - Institut Teknologi Bandung\\Institut Teknologi Bandung\\Perkuliahan\\Semester 4\\STIMA\\Tubes 3\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\5ANDI\\Ngoding\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj",
+        "projectUniqueName": "C:\\Users\\Acer\\OneDrive - Institut Teknologi Bandung\\Institut Teknologi Bandung\\Perkuliahan\\Semester 4\\STIMA\\Tubes 3\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj",
         "projectName": "MyConsoleApp",
-        "projectPath": "D:\\5ANDI\\Ngoding\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj",
-        "packagesPath": "C:\\Users\\sandi\\.nuget\\packages\\",
-        "outputPath": "D:\\5ANDI\\Ngoding\\Tubes3_KacaprukReborn\\project_cli\\obj\\",
+        "projectPath": "C:\\Users\\Acer\\OneDrive - Institut Teknologi Bandung\\Institut Teknologi Bandung\\Perkuliahan\\Semester 4\\STIMA\\Tubes 3\\Tubes3_KacaprukReborn\\project_cli\\MyConsoleApp.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Acer\\OneDrive - Institut Teknologi Bandung\\Institut Teknologi Bandung\\Perkuliahan\\Semester 4\\STIMA\\Tubes 3\\Tubes3_KacaprukReborn\\project_cli\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sandi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
