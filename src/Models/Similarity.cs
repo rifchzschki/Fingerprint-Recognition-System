@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,17 +46,19 @@ namespace Tubes3.Models
         // Fungsi untuk menemukan pasangan dengan similaritas tertinggi, candidates isinya ascii representation dan valuenya path dan namanya.
         public static (double, string) FindBestMatch(string target, Dictionary<string, (string, string)> candidates)
         {
-            var bestMatch = candidates.Select(candidate =>
+            var bestMatch = new ConcurrentBag<(double, string)>();
+
+            Parallel.ForEach(candidates, candidate =>
             {
                 var asciiRepresentation = candidate.Key;
                 var (path, name) = candidate.Value;
                 var similarity = SimilarityScore(target, asciiRepresentation);
-                return (similarity, name);
-            })
-            .OrderByDescending(result => result.Item1)
-            .First();
-            bestMatch.Item1 = Math.Round(bestMatch.Item1 * 100, 6);
-            return bestMatch;
+                bestMatch.Add((similarity, name));
+            });
+
+            var bestMatchResult = bestMatch.OrderByDescending(result => result.Item1).First();
+            bestMatchResult.Item1 = Math.Round(bestMatchResult.Item1 * 100, 6);
+            return bestMatchResult;
         }
     }
 }
