@@ -9,7 +9,7 @@ namespace Tubes3.Models
     // DatabaseHelper class to handle database operations
     public class DatabaseHelper
     {
-        private static string connectionString = "Server=localhost;Database=dummy_stima;Uid=root;Pwd=Zxczxc123456;"; // String koneksi MySQL/MariaDB
+        private static string connectionString = "Server=localhost;Database=dummy_stima;Uid=root;"; // String koneksi MySQL/MariaDB
         private MySqlConnection connection = new MySqlConnection(connectionString);
 
         public DatabaseHelper()      // Constructor to initialize the connection string (databasePath is the path to the .db file)
@@ -148,10 +148,10 @@ namespace Tubes3.Models
         public string? Pekerjaan { get; set; }
         public string? Kewarganegaraan { get; set; }
 
-        public StringBuilder showInfo(){
+        public StringBuilder showInfo(string namaAsli){
             StringBuilder sb = new StringBuilder();
             sb.Append("NIK: "); sb.Append(Nik); sb.Append("\n");
-            sb.Append("Nama: "); sb.Append(Nama); sb.Append("\n");
+            sb.Append("Nama: "); sb.Append(namaAsli); sb.Append("\n");
             sb.Append("Tempat, Tanggal lahir: "); sb.Append(Tempat_lahir); sb.Append(", "); sb.Append(Tanggal_lahir); sb.Append("\n");
             sb.Append("Jenis Kelamin: "); sb.Append(Jenis_kelamin); sb.Append("\n");
             sb.Append("Golongan Darah: "); sb.Append(Golongan_darah); sb.Append("\n");

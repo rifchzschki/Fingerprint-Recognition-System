@@ -204,7 +204,7 @@ namespace Tubes3.ViewModels
                 // ambil biodata dari database
                 // tampilin biodata
 
-                StringBuilder sb = bio.showInfo();
+                StringBuilder sb = bio.showInfo(nama);
                 PersonData = sb.ToString();
 
             }
