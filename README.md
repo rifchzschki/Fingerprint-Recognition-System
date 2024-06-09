@@ -1,10 +1,9 @@
 # Tubes3_KacaprukReborn
 
 ##### Tangkapan layar dari program :)
-
-> ![program](src/assets/tes.png) <br>
+> ![program](src/Assets/tes.png) <br>
 >
-> ![program2](src/assets/hasil.png)
+> ![program2](src/Assets/hasil.png)
 
 ## Deskripsi Program
 
