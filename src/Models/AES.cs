@@ -1,5 +1,5 @@
 using System;
-public class AES256 {
+public class AES128 {
     public const int BLOCK_SIZE = (128/8);
     public const int KEY_SIZE = (128/8);
     public const int ROUND_NUM = 10;
@@ -70,7 +70,7 @@ public class AES256 {
     public byte[][] Subkeys { get { return subkeys; } }
 
     // constructor
-    public AES256(byte[] key = null) {
+    public AES128(byte[] key = null) {
         for (int i = 0; i < ROUND_NUM + 1; ++i)
         subkeys[i] = new byte[KEY_SIZE]; 
         Key = key != null && key.Length == KEY_SIZE ? key : this.key; //key / default key
@@ -217,7 +217,7 @@ public class AES256 {
             if (r < ROUND_NUM - 1){
                 mixColumn(ref ciphertext);
             }
-            for (int j = 0; j < AES256.BLOCK_SIZE; ++j){
+            for (int j = 0; j < AES128.BLOCK_SIZE; ++j){
                 ciphertext[j] ^= Subkeys[r + 1][j];
 
             }

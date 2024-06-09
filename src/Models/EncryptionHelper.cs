@@ -5,7 +5,7 @@ using System.Text;
 namespace Tubes3.Models{
     public class EncryptionHelper
     {
-        private static AES256 machine = new AES256();
+        private static AES128 machine = new AES128();
 
         // untuk print array byte (buat debug)
         public static void PrintByteArray(byte[] array)
