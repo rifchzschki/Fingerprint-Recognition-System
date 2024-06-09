@@ -9,7 +9,7 @@ namespace Tubes3.Models
     // DatabaseHelper class to handle database operations
     public class DatabaseHelper
     {
-        private static string connectionString = "Server=localhost;Database=dummy_stima;Uid=root;"; // String koneksi MySQL/MariaDB
+        private static string connectionString = "Server=localhost;Database=dummy_stima;Uid=root;Pwd=Zxczxc123456;"; // String koneksi MySQL/MariaDB
         private MySqlConnection connection = new MySqlConnection(connectionString);
 
         public DatabaseHelper()      // Constructor to initialize the connection string (databasePath is the path to the .db file)
