@@ -1,4 +1,4 @@
-# Tubes3_KacaprukReborn
+# Fingerprint Recognition System
 
 ##### Tangkapan layar dari program :)
 > ![program](src/Assets/tes.png) <br>
